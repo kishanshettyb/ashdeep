@@ -5,10 +5,23 @@
 
 @media (min-width: 768px) {
 	.logo {
-		width: 400px;
+		width: 200px;
 	}
 
 }
+
+@media (min-width: 1200px) {
+	.logo {
+		width: 200px;
+	}
+}
+
+@media (min-width: 1400px) {
+	.logo {
+		width: 300px;
+	}
+}
+
 
 .modal-content {
 	border-radius: 20px;
@@ -41,4 +54,8 @@ textarea.form-control {
 	height: 55px;
 	border-radius: 10px;
 	font-weight: 600;
+}
+
+.banner__video {
+	transform: scale(1) !important;
 }
