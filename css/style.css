@@ -6931,13 +6931,13 @@ textarea.form-control {
   display: flex;
   -webkit-box-align: center;
   -ms-flex-align: center;
-  align-items: center;
+  align-items: self-start;
   gap: 10px;
   font-weight: 500;
 }
 
 .about-section-three .content-column .inner-column .list ul li:not(:last-child) {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .about-section-four {
@@ -8939,7 +8939,7 @@ textarea.form-control {
 .pricing-block .inner-box {
   position: relative;
   z-index: 1;
-  padding: 60px;
+  padding: 30px;
   padding-bottom: 35px;
   border-radius: 30px;
   overflow: hidden;

@@ -22,6 +22,11 @@
 	}
 }
 
+@media (min-width: 1400px) {
+	.banner-two__content .title {
+		font-size: 80px;
+	}
+}
 
 .modal-content {
 	border-radius: 20px;
@@ -58,4 +63,11 @@ textarea.form-control {
 
 .banner__video {
 	transform: scale(1) !important;
+}
+
+.small-text {
+	font-size: 14px;
+	line-height: 24px;
+	color: #b0b0b0;
+	margin-bottom: 0;
 }
