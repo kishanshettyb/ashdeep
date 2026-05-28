@@ -7,3 +7,36 @@
 		width: 400px;
 	}
 }
+
+.modal-content {
+	border-radius: 20px;
+	overflow: hidden;
+}
+
+.form-control,
+.form-select {
+	height: 55px;
+	border-radius: 10px;
+	border: 1px solid #ddd;
+	box-shadow: none;
+}
+
+textarea.form-control {
+	height: auto;
+	padding-top: 15px;
+}
+
+.dateTimePicker i {
+	position: absolute;
+	right: 18px;
+	top: 50%;
+	transform: translateY(-50%);
+	color: #c9a35b;
+	pointer-events: none;
+}
+
+.btn-dark {
+	height: 55px;
+	border-radius: 10px;
+	font-weight: 600;
+}

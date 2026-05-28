@@ -114,7 +114,8 @@
                 <div class="menu-btns">
                     <button class="search-trigger d-none d-lg-block"><i
                             class="fa-light fa-magnifying-glass"></i></button>
-                    <a href="page-contact.html" class="book-now d-none d-xxl-inline-block">Book An Apoinment
+                    <a data-bs-toggle="modal" data-bs-target="#bookingModal" href="#"
+                        class="book-now d-none d-xxl-inline-block">Book An Apoinment
                         <svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_1_441)">
                                 <path
@@ -1862,7 +1863,8 @@
                                 </h4>
                                 <h1 class="title" data-animation="fadeInUp" data-delay=".5s"><span>Indulge in</span>
                                     Pure Tranquility</h1>
-                                <a href="#0" class="btn-two-light mt-50" data-animation="fadeInUp" data-delay="1s">Book
+                                <a data-bs-toggle="modal" data-bs-target="#bookingModal" href="#0"
+                                    class="btn-two-light mt-50" data-animation="fadeInUp" data-delay="1s">Book
                                     Now
                                     <span class="icon_box">
                                         <i class="fa-regular icon_first fa-arrow-right-long"></i>
@@ -1904,7 +1906,8 @@
                                 </h4>
                                 <h1 class="title" data-animation="fadeInUp" data-delay=".5s"><span>Indulge in</span>
                                     Pure Tranquility</h1>
-                                <a href="#0" class="btn-two-light mt-50" data-animation="fadeInUp" data-delay="1s">Book
+                                <a data-bs-toggle="modal" data-bs-target="#bookingModal" href="#0"
+                                    class="btn-two-light mt-50" data-animation="fadeInUp" data-delay="1s">Book
                                     Now
                                     <span class="icon_box">
                                         <i class="fa-regular icon_first fa-arrow-right-long"></i>
@@ -1988,18 +1991,19 @@
 
                                 <!-- Name -->
                                 <div class="col-sm-6">
-                                    <input type="text" id="name" class="form-control" placeholder="Name *" required>
+                                    <input type="text" id="namemodal" class="form-control" placeholder="Name *"
+                                        required>
                                 </div>
 
                                 <!-- Email -->
                                 <div class="col-sm-6">
-                                    <input type="email" id="email" class="form-control" placeholder="Email Address *"
-                                        required>
+                                    <input type="email" id="emailmodal" class="form-control"
+                                        placeholder="Email Address *" required>
                                 </div>
 
                                 <!-- Service -->
                                 <div class="col-sm-6">
-                                    <select class="form-select" id="service" required>
+                                    <select class="form-select" id="servicemodal" required>
                                         <option value="">
                                             Select Service *
                                         </option>
@@ -2030,7 +2034,7 @@
                                 <div class="col-sm-6">
                                     <div class="dateTimePicker position-relative">
 
-                                        <input type="text" id="appointmentDate" class="form-control"
+                                        <input type="text" id="appointmentDatemodal" class="form-control"
                                             placeholder="Select Date & Time *" required>
 
                                         <i class="fa-solid fa-calendar-days"></i>
@@ -2041,7 +2045,7 @@
                             </div>
 
                             <!-- Message -->
-                            <textarea class="form-control mt-4" id="message" rows="5"
+                            <textarea class="form-control mt-4" id="messagemodal" rows="5"
                                 placeholder="Write a Message"></textarea>
 
                             <!-- Button -->
@@ -2175,81 +2179,81 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
     <script>
+
+        // Normal Form Picker
         flatpickr("#appointmentDate", {
             enableTime: true,
             minDate: "today",
             dateFormat: "d M Y - h:i K",
-            time_24hr: false,
             minuteIncrement: 15
         });
-        document.getElementById("bookingForm").addEventListener("submit", function (e) {
-            e.preventDefault();
 
-            // Get values
-            let name = document.getElementById("name").value;
-            let email = document.getElementById("email").value;
-            let service = document.getElementById("service").value;
-            let date = document.getElementById("date").value;
-            let message = document.getElementById("message").value;
+        // Modal Form Picker
+        flatpickr("#appointmentDatemodal", {
+            enableTime: true,
+            minDate: "today",
+            dateFormat: "d M Y - h:i K",
+            minuteIncrement: 15
+        });
 
-            // WhatsApp number
+        // Main Form
+        document.getElementById("bookingForm")
+            .addEventListener("submit", function (e) {
+
+                e.preventDefault();
+
+                sendWhatsApp({
+                    name: document.getElementById("name").value,
+                    email: document.getElementById("email").value,
+                    service: document.getElementById("service").value,
+                    date: document.getElementById("appointmentDate").value,
+                    message: document.getElementById("message").value
+                });
+
+            });
+
+        // Modal Form
+        document.getElementById("bookingFormModal")
+            .addEventListener("submit", function (e) {
+
+                e.preventDefault();
+
+                sendWhatsApp({
+                    name: document.getElementById("namemodal").value,
+                    email: document.getElementById("emailmodal").value,
+                    service: document.getElementById("servicemodal").value,
+                    date: document.getElementById("appointmentDatemodal").value,
+                    message: document.getElementById("messagemodal").value
+                });
+
+            });
+
+        // WhatsApp Function
+        function sendWhatsApp(data) {
+
             let phoneNumber = "919591956155";
 
-            // WhatsApp message
-            let whatsappMessage = `Hello Ashdeep Salon & Aesthetic,
-        
-                            I would like to book an appointment.
-                            
-                            Name: ${name}
-                            Email: ${email}
-                            Service: ${service}
-                            Preferred Date & Time: ${date}
-                            
-                            Message:
-                            ${message}`;
+            let whatsappMessage =
+                `Hello Ashdeep Salon & Aesthetic, I would like to book an appointment.
 
-            // Encode URL
-            let encodedMessage = encodeURIComponent(whatsappMessage);
+Name: ${data.name}
+Email: ${data.email}
+Service: ${data.service}
+Preferred Date & Time: ${data.date}
 
-            // Open WhatsApp
-            let whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+Message:
+${data.message}`;
 
-            window.open(whatsappURL, "_blank");
-        });
-        document.getElementById("bookingFormModal").addEventListener("submit", function (e) {
-            e.preventDefault();
+            let encodedMessage =
+                encodeURIComponent(whatsappMessage);
 
-            // Get values
-            let name = document.getElementById("name").value;
-            let email = document.getElementById("email").value;
-            let service = document.getElementById("service").value;
-            let date = document.getElementById("date").value;
-            let message = document.getElementById("message").value;
+            window.open(
+                `https://wa.me/${phoneNumber}?text=${encodedMessage}`,
+                "_blank"
+            );
 
-            // WhatsApp number
-            let phoneNumber = "919591956155";
+        }
 
-            // WhatsApp message
-            let whatsappMessage = `Hello Ashdeep Salon & Aesthetic,
-        
-                            I would like to book an appointment.
-                            
-                            Name: ${name}
-                            Email: ${email}
-                            Service: ${service}
-                            Preferred Date & Time: ${date}
-                            
-                            Message:
-                            ${message}`;
-
-            // Encode URL
-            let encodedMessage = encodeURIComponent(whatsappMessage);
-
-            // Open WhatsApp
-            let whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-
-            window.open(whatsappURL, "_blank");
-        });
     </script>
 </body>
 
